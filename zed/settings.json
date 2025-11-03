@@ -3,19 +3,34 @@
 // For information on how to configure Zed, see the Zed
 // documentation: https://zed.dev/docs/configuring-zed
 {
-  "audio": {
-    "experimental.legacy_audio_compatible": false,
-    "experimental.denoise": false,
-    "experimental.auto_speaker_volume": false
-  },
+  "ui_font_size": 15.0,
+  "ssh_connections": [
+    {
+      "host": "server.local",
+      "username": "LOCAL_SERVER",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/Users/local_server/marvelous"
+          ]
+        },
+        {
+          "paths": [
+            "/Users/local_server/sbk/verifyonce"
+          ]
+        }
+      ]
+    }
+  ],
   "outline_panel": {
     "indent_size": 15.0,
     "folder_icons": true,
     "file_icons": true
   },
   "tabs": {
-        "file_icons": true
-    },
+    "file_icons": true
+  },
   "debugger": {
     "button": false
   },
@@ -27,10 +42,6 @@
     "active_language_button": true
   },
   "close_on_file_delete": true,
-  "completions": {
-    "lsp_insert_mode": "replace",
-    "lsp_fetch_timeout_ms": 10
-  },
   "inlay_hints": {
     "enabled": false
   },
@@ -46,9 +57,9 @@
   "relative_line_numbers": false,
   "multi_cursor_modifier": "alt",
   "agent_buffer_font_size": 12.0,
-  "agent_ui_font_size": 14.0,
+  "agent_ui_font_size": 15.0,
   "buffer_font_weight": 400.0,
-  "buffer_font_size": 15.0,
+  "buffer_font_size": 14.0,
   "context_servers": {
     "svelte": {
       "source": "custom",
@@ -62,16 +73,24 @@
     }
   },
   "agent": {
-    "default_width": 630.0,
+    "default_width": 500.0,
     "button": true,
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4-5"
     },
     "default_profile": "write"
   },
-  "theme": "One Dark",
-  "icon_theme": "Material Icon Theme",
+  "theme": {
+    "mode": "dark",
+    "light": "One Dark",
+    "dark": "Ayu Mirage"
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
   "features": {
     "edit_prediction_provider": "zed"
   },
@@ -168,6 +187,15 @@
     "emmet": true,
     "sql": true
   },
+  "lsp": {
+    "zls": {
+      "settings": {
+        "zls": {
+          "enable_build_on_save": true
+        }
+      }
+    }
+  },
   "languages": {
     "C": {
       "format_on_save": "on"
@@ -223,7 +251,16 @@
       ]
     },
     "Zig": {
-      "tab_size": 4
+      "tab_size": 4,
+      "format_on_save": "on",
+      "language_servers": [
+        "zls",
+        "..."
+      ],
+      "code_actions_on_format": {
+        "source.fixAll": true, // Run code actions that currently supports adding and removing discards.
+        // "source.organizeImports": true // Run code actions that sorts @import declarations.
+      }
     }
   }
 }

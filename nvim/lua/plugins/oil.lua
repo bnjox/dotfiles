@@ -12,6 +12,12 @@ return {
           require("oil").open_float()
         end,
       },
+      ["q"] = {
+        desc = "Close floating window",
+        callback = function()
+          require("oil").close()
+        end,
+      },
       ["C-c"] = {
         desc = "Close float window if open",
         callback = function()
