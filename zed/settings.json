@@ -2,265 +2,140 @@
 //
 // For information on how to configure Zed, see the Zed
 // documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "ui_font_size": 15.0,
-  "ssh_connections": [
-    {
-      "host": "server.local",
-      "username": "LOCAL_SERVER",
-      "args": [],
-      "projects": [
-        {
-          "paths": [
-            "/Users/local_server/marvelous"
-          ]
-        },
-        {
-          "paths": [
-            "/Users/local_server/sbk/verifyonce"
-          ]
-        }
-      ]
-    }
-  ],
-  "outline_panel": {
-    "indent_size": 15.0,
-    "folder_icons": true,
-    "file_icons": true
-  },
-  "tabs": {
-    "file_icons": true
-  },
-  "debugger": {
-    "button": false
-  },
-  "diagnostics": {
-    "button": true
-  },
-  "status_bar": {
-    "cursor_position_button": false,
-    "active_language_button": true
-  },
-  "close_on_file_delete": true,
-  "inlay_hints": {
-    "enabled": false
-  },
-  "toolbar": {
-    "selections_menu": true,
-    "quick_actions": true,
-    "breadcrumbs": true
-  },
-  "minimap": {
-    "max_width_columns": 74,
-    "thumb_border": "none"
-  },
-  "relative_line_numbers": false,
-  "multi_cursor_modifier": "alt",
-  "agent_buffer_font_size": 12.0,
-  "agent_ui_font_size": 15.0,
-  "buffer_font_weight": 400.0,
-  "buffer_font_size": 14.0,
-  "context_servers": {
-    "svelte": {
-      "source": "custom",
-      "enabled": true,
-      "command": "npx",
-      "args": [
-        "-y",
-        "@sveltejs/mcp"
-      ],
-      "env": {}
-    }
-  },
-  "agent": {
-    "default_width": 500.0,
-    "button": true,
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4-5"
-    },
-    "default_profile": "write"
-  },
-  "theme": {
-    "mode": "dark",
-    "light": "One Dark",
-    "dark": "Ayu Mirage"
-  },
-  "icon_theme": {
-    "mode": "dark",
-    "light": "Material Icon Theme",
-    "dark": "Material Icon Theme"
-  },
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
-  "unnecessary_code_fade": 0.5,
-  "vim_mode": false,
-  "restore_on_startup": "last_workspace",
-  "show_edit_predictions": true,
-  "show_whitespaces": "selection",
-  "calls": {
-    "mute_on_join": true
-  },
-  "title_bar": {
-    "show_onboarding_banner": true,
-    "show_project_items": true,
-    "show_branch_name": true,
-    "show_branch_icon": true,
-    "show_user_picture": false,
-    "show_sign_in": false,
-    "show_menus": false
-  },
-  "scrollbar": {
-    "cursors": false,
-    "git_diff": true,
-    "search_results": false,
-    "selected_text": false,
-    "axes": {
-      "horizontal": false,
-      "vertical": true
-    }
-  },
-  "middle_click_paste": false,
-  "gutter": {
-    "folds": true,
-    "breakpoints": false,
-    "line_numbers": true,
-    "runnables": false,
-    "min_line_number_digits": 0
-  },
-  "indent_guides": {
-    "line_width": 1,
-    "enabled": true,
-    "coloring": "indent_aware"
-  },
-  "search": {
-    "button": false
-  },
   "project_panel": {
-    "hide_root": false,
-    "auto_reveal_entries": true,
-    "indent_size": 15.0,
-    "git_status": true,
-    "file_icons": true,
-    "hide_gitignore": false,
-    "button": true,
     "sticky_scroll": false,
-    "starts_open": true,
-    "auto_fold_dirs": false,
-    "scrollbar": {
-      "show": "auto"
-    }
   },
   "collaboration_panel": {
-    "button": false
+    "button": false,
+  },
+  "agent_servers": {
+    "opencode": {
+      "type": "registry",
+    },
   },
   "notification_panel": {
-    "button": false
-  },
-  "show_call_status_icon": false,
-  "autosave": "on_focus_change",
-  "tab_bar": {
-    "show": true,
-    "show_nav_history_buttons": false,
-    "show_tab_bar_buttons": false
-  },
-  "formatter": "language_server",
-  "soft_wrap": "editor_width",
-  "tab_size": 2,
-  "telemetry": {
-    "diagnostics": true,
-    "metrics": true
-  },
-  "disable_ai": false,
-  "edit_predictions": {
-    "mode": "subtle"
-  },
-  "terminal": {
     "button": false,
-    "cursor_shape": "bar"
+  },
+  "agent": {
+    "favorite_models": [],
+    "model_parameters": [],
+    "enable_feedback": false,
+  },
+  "calls": {
+    "share_on_join": false,
+    "mute_on_join": true,
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_user_picture": false,
   },
   "auto_install_extensions": {
     "html": true,
     "svelte": true,
     "biome": true,
     "emmet": true,
-    "sql": true
+    "sql": true,
+    "zls": true,
+    "gopls": true,
+  },
+  "tab_size": 2,
+  "search": {
+    "button": false,
+  },
+  "gutter": {
+    "min_line_number_digits": 0,
+  },
+  "autosave": "on_focus_change",
+  "unnecessary_code_fade": 0.7,
+  "ssh_connections": [
+    {
+      "host": "server.local",
+      "username": "local_server",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/Users/local_server/marvelous"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "100.121.105.19",
+      "username": "local_server",
+      "args": [],
+      "projects": []
+    }
+  ],
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "ui_font_size": 15.0,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Ayu Mirage",
   },
   "lsp": {
     "zls": {
       "settings": {
         "zls": {
-          "enable_build_on_save": true
-        }
-      }
-    }
+          "enable_build_on_save": true,
+        },
+      },
+    },
   },
   "languages": {
-    "C": {
-      "format_on_save": "on"
-    },
-    "Go": {
-      "tab_size": 4
-    },
     "JavaScript": {
       "formatter": [
-        {
-          "code_action": "source.fixAll.biome"
-        },
-        {
-          "code_action": "source.organizeImports.biome"
-        },
+        { "code_action": "source.fixAll.biome" },
+        { "code_action": "source.organizeImports.biome" },
         {
           "language_server": {
-            "name": "biome"
-          }
-        }
-      ]
+            "name": "biome",
+          },
+        },
+      ],
+      "language_servers": ["tsgo", "vtsls"],
     },
     "Python": {
-      "wrap_guides": [
-        80
-      ],
+      "wrap_guides": [80],
       "tab_size": 4,
-      "language_servers": [
-        "basedpyright",
-        "ruff",
-        "..."
-      ],
-      "formatter": "language_server"
+      "language_servers": ["ty", "ruff"],
+      "formatter": "language_server",
     },
     "Svelte": {
       "prettier": {
-        "allowed": true
-      }
+        "allowed": true,
+      },
     },
     "TypeScript": {
       "formatter": [
-        {
-          "code_action": "source.fixAll.biome"
-        },
-        {
-          "code_action": "source.organizeImports.biome"
-        },
+        { "code_action": "source.fixAll.biome" },
+        { "code_action": "source.organizeImports.biome" },
         {
           "language_server": {
-            "name": "biome"
-          }
-        }
-      ]
+            "name": "biome",
+          },
+        },
+      ],
+      "language_servers": ["tsgo", "vtsls"],
     },
     "Zig": {
       "tab_size": 4,
       "format_on_save": "on",
-      "language_servers": [
-        "zls",
-        "..."
-      ],
+      "language_servers": ["zls", "..."],
       "code_actions_on_format": {
-        "source.fixAll": true, // Run code actions that currently supports adding and removing discards.
+        "source.fixAll": true,
         // "source.organizeImports": true // Run code actions that sorts @import declarations.
-      }
-    }
-  }
+      },
+    },
+  },
 }

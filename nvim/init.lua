@@ -20,9 +20,9 @@ require("lazy").setup({
 
 -- LSP servers and clients are able to communicate to each other what features they support.
 --  By default, Neovim doesn't support everything that is in the LSP specification.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
-capabilities.textDocument.onTypeFormatting = { dynamicRegistration = false }
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+-- capabilities.textDocument.onTypeFormatting = { dynamicRegistration = false }
 
 -- Set default for all clients
 vim.lsp.config("*", {
@@ -56,23 +56,7 @@ vim.lsp.config("zls", {
   }
 })
 
-vim.lsp.enable({
-  "basedpyright",
-  "biome",
-  "clangd",
-  "gopls",
-  "emmet_language_server",
-  "prettierd",
-  "ruff",
-  "sqlls",
-  "html",
-  "cssls",
-  "tailwindcss",
-  "svelte",
-  "vtsls",
-  "zls",
-  "lua_ls"
-})
+vim.cmd.colorscheme "catppuccin"
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
