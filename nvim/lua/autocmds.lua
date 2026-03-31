@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
-    (vim.hl or vim.highlight).on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -21,16 +21,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
   pattern = {
-    "PlenaryTestPopup",
     "checkhealth",
-    "dbout",
     "gitsigns-blame",
-    "grug-far",
     "help",
     "lspinfo",
-    "neotest-output",
-    "neotest-output-panel",
-    "neotest-summary",
     "notify",
     "qf",
     "spectre_panel",
@@ -156,26 +150,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     })
   end,
 })
-
-
--- Change diagnostic symbols in the sign column (gutter)
-if vim.g.have_nerd_font then
-  vim.diagnostic.config({
-    signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = "",
-        [vim.diagnostic.severity.WARN]  = "",
-        [vim.diagnostic.severity.HINT]  = "",
-        [vim.diagnostic.severity.INFO]  = "",
-      },
-    },
-  })
-  -- local signs = { ERROR = "", WARN = "", HINT = "", INFO = "" }
-  -- local diagnostic_signs = {}
-  -- for type, icon in pairs(signs) do
-  --   local hl = "DiagnosticSign" .. type
-  --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  --   diagnostic_signs[vim.diagnostic.severity[type]] = icon
-  -- end
-  -- vim.diagnostic.config({ signs = { text = diagnostic_signs } })
-end

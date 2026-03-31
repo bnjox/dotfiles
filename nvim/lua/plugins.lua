@@ -9,12 +9,13 @@ return {
   -- ║     PLUGIN: TREESITTER        ║
   -- ╚════════════════════════════════╝
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    -- main = "nvim-treesitter.configs", -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      require("nvim-treesitter").setup()
+
+      local parsers = {
         "bash",
         "c",
         "css",
@@ -24,21 +25,20 @@ return {
         "json",
         "lua",
         "markdown",
-        "markdown_inline",
         "python",
         "sql",
         "svelte",
         "typescript",
-      },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-    },
+      }
+      require('nvim-treesitter').install(parsers):wait(300000)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = parsers,
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
   },
 
   -- ╔════════════════════════════════╗
@@ -48,7 +48,7 @@ return {
     "saghen/blink.cmp",
     dependencies = { "rafamadriz/friendly-snippets" },
     event = "VeryLazy",
-    version = "*",
+    version = "1.*",
     ---@module 'blink.cmp'
     opts = {
       keymap = {
@@ -109,11 +109,6 @@ return {
         end,
       },
     },
-    keys = {
-      { "<leader>bd", "<Cmd>bd<CR>",                  desc = "Delete Current Buffer", mode = "n" },
-      { "<leader>bn", "<Cmd>BufferLineCycleNext<CR>", desc = "Move to next Buffer",   mode = "n" },
-      { "<leader>bp", "<Cmd>BufferLineCyclePrev<CR>", desc = "Move to prev Buffer",   mode = "n" },
-    },
   },
 
   -- ╔════════════════════════════════╗
@@ -172,7 +167,8 @@ return {
         fzf_lua.live_grep_native,
         { desc = "[S]earch by [G]rep in current project" }
       )
-      vim.keymap.set("n", "<leader>q", fzf_lua.diagnostics_document, { desc = "Open diagnostic [Q]uickfix list" })
+      -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+      -- vim.keymap.set("n", "<leader>q", fzf_lua.diagnostics_document, { desc = "Open diagnostic [Q]uickfix list" })
       vim.keymap.set("n", "<leader>sr", fzf_lua.resume, { desc = "[S]earch [R]esume" })
       vim.keymap.set("n", "<leader>s.", fzf_lua.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set("n", "<leader><leader>", fzf_lua.buffers, { desc = "[ ] Find existing buffers" })
@@ -192,18 +188,19 @@ return {
     "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "ty",
+        -- "ty",
         "biome",
         "clangd",
         "gopls",
         "emmet_language_server",
-        "ruff",
+        -- "ruff",
         "sqlls",
-        "html",
-        "cssls",
+        -- "html",
+        -- "cssls",
         "tailwindcss",
         "svelte",
         -- "vtsls",
+        "svelte",
         "zls",
         "lua_ls",
         "tsgo"
@@ -227,7 +224,7 @@ return {
     config = function()
       require("mini.animate").setup()
 
-      require("mini.comment").setup()
+      -- require("mini.comment").setup()
 
       require("mini.notify").setup()
       -- require("mini.ai").setup({ n_lines = 500 })
