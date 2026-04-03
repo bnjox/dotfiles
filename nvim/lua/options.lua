@@ -21,7 +21,6 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_tutor_mode_plugin = 1
 -- vim.g.loaded_remote_plugins = 1
 
-
 -- ======= Indentation ========
 vim.opt.tabstop = 2        -- Insert spaces for tabs
 vim.opt.shiftwidth = 2     -- Number of spaces for each indent
@@ -57,6 +56,7 @@ vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.conceallevel = 0     -- So that `` is visible in markdown files (default: 1)
 -- vim.opt.conceallevel = 2               -- Hide * markup for bold and italic, but not markers with substitutions
 vim.opt.confirm = true       -- Confirm to save changes before exiting modified buffer
+vim.o.inccommand = 'split'   -- Preview substitutions live, as you type!
 -- vim.opt.concealcursor = ""             -- Don't hide cursor line markup
 -- opt.ruler = false                      -- Disable the default ruler
 -- opt.virtualedit = "block"              -- Allow cursor to move where there is no text in visual block mode
@@ -92,13 +92,14 @@ vim.opt.autoread = true     -- Auto reload files changed outside vim
 vim.opt.autowrite = true    -- Auto save
 
 -- ======= Behavior settings ========
-vim.opt.hidden = true                                       -- Prevents the "No Write Since Last Change" warning when switching files.
-vim.opt.errorbells = false                                  -- No error bells
-vim.opt.autochdir = false                                   -- Don't auto change directory
-vim.opt.iskeyword:append("-")                               -- Treat dash as part of word
-vim.opt.path:append("**")                                   -- include subdirectories in search
-vim.opt.mouse = "a"                                         -- Enable mouse mode!
-vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync clipboard between OS and Neovim.
+vim.opt.hidden = true         -- Prevents the "No Write Since Last Change" warning when switching files.
+vim.opt.errorbells = false    -- No error bells
+vim.opt.autochdir = false     -- Don't auto change directory
+vim.opt.iskeyword:append("-") -- Treat dash as part of word
+vim.opt.path:append("**")     -- include subdirectories in search
+vim.opt.mouse = "a"           -- Enable mouse mode!
+-- vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync clipboard between OS and Neovim.
+vim.schedule(function() vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" end)
 
 -- ======= Folding settings ========
 vim.opt.smoothscroll = true

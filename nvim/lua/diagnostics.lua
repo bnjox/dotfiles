@@ -39,6 +39,7 @@ vim.fn.sign_define("DapBreakpoint", {
 })
 
 vim.diagnostic.config({
+  virtual_text = true,   -- Text shows up at the end of the line
   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
   -- underline = true,
   underline = { severity = vim.diagnostic.severity.ERROR },
@@ -62,11 +63,11 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = "DiagnosticHintLine",
     },
   },
-  virtual_text = {
-    spacing = 4,
-    source = "if_many",
-    prefix = "●",
-  },
+  -- virtual_text = {
+  --   spacing = 4,
+  --   source = "if_many",
+  --   prefix = "●",
+  -- },
   jump = {
     on_jump = function(_, bufnr)
       vim.diagnostic.open_float({
