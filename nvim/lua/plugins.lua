@@ -15,29 +15,17 @@ return {
     config = function()
       require("nvim-treesitter").setup()
 
-      local parsers = {
-        "bash",
-        "c",
-        "css",
-        "go",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "python",
-        "sql",
-        "svelte",
-        "typescript",
-      }
-      require('nvim-treesitter').install(parsers):wait(300000)
 
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = parsers,
-        callback = function()
-          vim.treesitter.start()
-        end,
-      })
+      pcall(vim.treesitter.start)
+
+      -- -- Treesitter needs a resolved filetype before it can infer the parser.
+      -- vim.api.nvim_create_autocmd("FileType", {
+      --   group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+      --   pattern = parsers,
+      --   callback = function()
+      --     pcall(vim.treesitter.start)
+      --   end,
+      -- })
     end,
   },
 
@@ -198,7 +186,6 @@ return {
         -- "html",
         -- "cssls",
         "tailwindcss",
-        "svelte",
         -- "vtsls",
         "svelte",
         "zls",
@@ -224,13 +211,8 @@ return {
     config = function()
       require("mini.animate").setup()
 
-      -- require("mini.comment").setup()
 
       require("mini.notify").setup()
-      -- require("mini.ai").setup({ n_lines = 500 })
-      -- require("mini.surround").setup()
-
-      -- require("mini.pairs").setup()
 
       local statusline = require("mini.statusline")
       statusline.setup({ use_icons = vim.g.have_nerd_font, lazy = false })
@@ -244,30 +226,6 @@ return {
       require("mini.trailspace").setup()
     end,
   },
-
-  -- ╔════════════════════════════════╗
-  -- ║      PLUGIN: FLUTTER          ║
-  -- ╚════════════════════════════════╝
-  -- {
-  --   "nvim-flutter/flutter-tools.nvim",
-  --   ft = "dart",
-  --   -- event = "VeryLazy",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  --   config = true,
-  --   opts = {
-  --     widget_guides = {
-  --       enabled = true,
-  --     },
-  --     lsp = {
-  --       colors = {
-  --         enabled = true,
-  --         background = true,
-  --       },
-  --     },
-  --   },
-  -- },
 
   -- ╔════════════════════════════════╗
   -- ║      PLUGIN: GITSIGNS         ║

@@ -13,7 +13,6 @@ local function set_highlights()
   vim.api.nvim_set_hl(0, "DiagnosticWarnLine", { bg = palette.warn, blend = 15 })
   vim.api.nvim_set_hl(0, "DiagnosticInfoLine", { bg = palette.info, blend = 10 })
   vim.api.nvim_set_hl(0, "DiagnosticHintLine", { bg = palette.hint, blend = 10 })
-  vim.api.nvim_set_hl(0, "DapBreakpointSign", { fg = "#FF0000", bg = nil, bold = true })
 end
 
 local function diagnostic_goto(next, level)
@@ -29,13 +28,6 @@ set_highlights()
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = vim.api.nvim_create_augroup("diagnostic_highlights", { clear = true }),
   callback = set_highlights,
-})
-
-vim.fn.sign_define("DapBreakpoint", {
-  text = "●",
-  texthl = "DapBreakpointSign",
-  linehl = "",
-  numhl = "",
 })
 
 vim.diagnostic.config({

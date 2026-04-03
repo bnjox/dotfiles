@@ -19,17 +19,14 @@ require("lazy").setup({
   require("plugins"),
 })
 
--- LSP servers and clients are able to communicate to each other what features they support.
---  By default, Neovim doesn't support everything that is in the LSP specification.
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
--- capabilities.textDocument.onTypeFormatting = { dynamicRegistration = false }
+local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
 
--- Set default for all clients
 vim.lsp.config("*", {
+  capabilities = lsp_capabilities,
   root_markers = { ".git" },
-  -- capabilities = capabilities,
 })
+
+-- LSP server configurations
 vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
@@ -56,6 +53,7 @@ vim.lsp.config("zls", {
     zls = { enable_build_on_save = true, semantic_tokens = "partial" }
   }
 })
+
 
 vim.cmd.colorscheme "catppuccin"
 

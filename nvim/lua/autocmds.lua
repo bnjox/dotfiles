@@ -76,7 +76,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 for _, extension in ipairs({ "go", "python", "zig" }) do
   vim.api.nvim_create_autocmd("FileType", {
     pattern = extension,
-    command = "set tabstop=4 shiftwidth=4 softtabstop=4",
+    callback = function()
+      vim.opt_local.tabstop = 4
+      vim.opt_local.shiftwidth = 4
+      vim.opt_local.softtabstop = 4
+    end,
   })
 end
 
@@ -89,9 +93,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local bufnr = event.buf
 
     local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client:supports_method("textDocument/completion", { bufnr = bufnr }) then
-      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
-    end
 
     -----------------------------------------------------------
     -- Document highlights on CursorHold
