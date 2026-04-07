@@ -4,17 +4,34 @@ vim.pack.add({
     name = "catppuccin",
     version = vim.version.range("*"),
   },
-}, { load = true })
-
-vim.cmd.colorscheme("catppuccin")
-
-vim.pack.add({
   {
     src = "https://github.com/nvim-mini/mini.nvim",
     version = vim.version.range("*"),
   },
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter",
+    -- version = vim.version.range("*"),
+  },
+  -- "https://github.com/rafamadriz/friendly-snippets", -- blink dependency
+  {
+    src = "https://github.com/nvim-tree/nvim-web-devicons",
+    version = vim.version.range("*"),
+  },
 }, { load = true })
 
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: CATPPUCCIN         ║
+-- ╚════════════════════════════════╝
+vim.cmd.colorscheme("catppuccin")
+
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: TREESITTER         ║
+-- ╚════════════════════════════════╝
+require("nvim-treesitter").setup()
+
+-- ╔════════════════════════════════╗
+-- ║        PLUGIN: MINI            ║
+-- ╚════════════════════════════════╝
 require("mini.trailspace").setup()
 require("mini.notify").setup()
 require("mini.animate").setup()
@@ -27,13 +44,10 @@ statusline.section_location = function()
   return "%2l:%-2v"
 end
 
-vim.pack.add({
-  "https://github.com/nvim-treesitter/nvim-treesitter",
-}, { load = true })
 
-require("nvim-treesitter").setup()
-pcall(vim.treesitter.start)
-
+-- ╔════════════════════════════════╗
+-- ║       PLUGIN: BLINK            ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
   "https://github.com/rafamadriz/friendly-snippets",
   {
@@ -78,17 +92,12 @@ blink.setup({
 })
 
 local lsp_capabilities = blink.get_lsp_capabilities()
-
-vim.pack.add({
-  "https://github.com/neovim/nvim-lspconfig",
-  "https://github.com/mason-org/mason.nvim",
-  "https://github.com/mason-org/mason-lspconfig.nvim",
-}, { load = true })
-
 vim.lsp.config("*", {
   capabilities = lsp_capabilities,
-  root_markers = { ".git" },
+  -- root_markers = { ".git" },
 })
+
+
 
 vim.lsp.config("lua_ls", {
   settings = {
@@ -115,7 +124,16 @@ vim.lsp.config("zls", {
   },
 })
 
-require("mason").setup({})
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: LSPCONFIG          ║
+-- ╚════════════════════════════════╝
+vim.pack.add({
+  "https://github.com/neovim/nvim-lspconfig", -- deps for lspconfig
+  "https://github.com/mason-org/mason.nvim",  -- deps for lspconfig
+  "https://github.com/mason-org/mason-lspconfig.nvim",
+}, { load = true })
+
+-- require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "biome",
@@ -131,8 +149,10 @@ require("mason-lspconfig").setup({
   },
 })
 
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: BUFFERLINE         ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
-  "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/akinsho/bufferline.nvim",
 }, { load = true })
 
@@ -146,21 +166,30 @@ require("bufferline").setup({
   },
 })
 
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: WHICH-KEY          ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
   "https://github.com/folke/which-key.nvim",
 }, { load = true })
 
 local which_key = require("which-key")
 which_key.setup({
-  icons = { mappings = vim.g.have_nerd_font },
+  -- icons = { mappings = vim.g.have_nerd_font },
 })
 
 vim.keymap.set("n", "<leader>?", function()
   which_key.show({ global = false })
 end, { desc = "Buffer Local Keymaps (which-key)" })
 
+-- ╔════════════════════════════════╗
+-- ║     PLUGIN: TOGGLETERM         ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
-  "https://github.com/akinsho/toggleterm.nvim",
+  {
+    src = "https://github.com/akinsho/toggleterm.nvim",
+    version = vim.version.range("1.*")
+  }
 }, { load = true })
 
 require("toggleterm").setup({
@@ -168,8 +197,10 @@ require("toggleterm").setup({
   direction = "float",
 })
 
+-- ╔════════════════════════════════╗
+-- ║       PLUGIN: FZF-LUA          ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
-  "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/ibhagwan/fzf-lua",
 }, { load = true })
 
@@ -191,7 +222,12 @@ vim.keymap.set("n", "<leader>sp", fzf_lua.grep_project, { desc = "[S]earch [P]ro
 vim.keymap.set("n", "<leader>sn", function()
   fzf_lua.files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
+-- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>q", fzf_lua.diagnostics_document, { desc = "Open diagnostic [Q]uickfix list" })
 
+-- ╔════════════════════════════════╗
+-- ║      PLUGIN: GITSIGNS          ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
   "https://github.com/lewis6991/gitsigns.nvim",
 }, { load = true })
@@ -214,11 +250,29 @@ vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Git 
 vim.keymap.set("n", "<leader>hs", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git [H]unk [S]elect" })
 vim.keymap.set("n", "<leader>hn", "<cmd>Gitsigns next_hunk<CR>", { desc = "Git [H]unk [N]ext" })
 
+-- ╔════════════════════════════════╗
+-- ║      PLUGIN: NEO-TREE          ║
+-- ╚════════════════════════════════╝
 vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/MunifTanjim/nui.nvim",
-  "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-neo-tree/neo-tree.nvim",
 }, { load = true })
 
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
+
+-- ╔════════════════════════════════╗
+-- ║      PLUGIN: DIFFVIEW          ║
+-- ╚════════════════════════════════╝
+-- vim.pack.add({
+--   "https://github.com/sindrets/diffview.nvim",
+-- }, { load = true })
+
+-- require("diffview.nvim").setup({
+--   view = {
+--     merge_tool = {
+--       layout = "diff3_mixed",
+--       disable_diagnostics = true,
+--     },
+--   },
+-- })

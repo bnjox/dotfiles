@@ -1,3 +1,12 @@
+-- Treesitter needs a resolved filetype before it can infer the parser.
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+  -- pattern = parsers,
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
+
 -- update tree-sitter parsers whenever ‘nvim-treesitter’ is updated:
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
@@ -38,9 +47,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "lspinfo",
     "notify",
     "qf",
-    "spectre_panel",
     "startuptime",
-    "tsplayground",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -96,8 +103,8 @@ for _, extension in ipairs({ "go", "python", "zig" }) do
 end
 
 -- Create global autogroups once
-local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = true })
-local detach_augroup = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true })
+local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = true })
+local detach_augroup = vim.api.nvim_create_augroup("lsp-detach", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
