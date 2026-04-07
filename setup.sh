@@ -4,16 +4,10 @@
 sudo dnf update
 
 # Install common tools
-sudo dnf install curl unzip mpv wget tar fzf ripgrep btop fd geary gthumb gh git fastfetch
+sudo dnf install curl unzip mpv wget tar fzf ripgrep btop fd gthumb gh git fastfetch
 
 # Install Bun
 # curl -fsSL https://bun.sh/install | bash
-
-# Install VSCode
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-dnf check-update
-sudo dnf install code
 
 # Install Zed editor
 curl -f https://zed.dev/install.sh | sh

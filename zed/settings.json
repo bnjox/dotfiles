@@ -59,18 +59,10 @@
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/Users/local_server/marvelous"
-          ]
-        }
-      ]
+          "paths": ["/Users/local_server/marvelous"],
+        },
+      ],
     },
-    {
-      "host": "100.121.105.19",
-      "username": "local_server",
-      "args": [],
-      "projects": []
-    }
   ],
   "icon_theme": {
     "mode": "dark",
