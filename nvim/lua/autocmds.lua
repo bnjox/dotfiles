@@ -102,7 +102,6 @@ for _, extension in ipairs({ "go", "python", "zig" }) do
   })
 end
 
--- Create global autogroups once
 local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = true })
 local detach_augroup = vim.api.nvim_create_augroup("lsp-detach", { clear = true })
 
@@ -115,22 +114,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -----------------------------------------------------------
     -- Document highlights on CursorHold
     -----------------------------------------------------------
-    if client and client:supports_method("textDocument/documentHighlight", { bufnr = bufnr }) then
-      -- Highlight references under cursor
+    if client and client:supports_method("textDocument/documentHighlight", bufnr) then
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = bufnr,
         group = highlight_augroup,
         callback = vim.lsp.buf.document_highlight,
       })
 
-      -- Clear highlights on cursor move
       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = bufnr,
         group = highlight_augroup,
         callback = vim.lsp.buf.clear_references,
       })
 
-      -- Clear highlights when LSP detaches
       vim.api.nvim_create_autocmd("LspDetach", {
         group = detach_augroup,
         callback = function(event2)
@@ -143,7 +139,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -----------------------------------------------------------
     -- Inlay hints toggle keymap
     -----------------------------------------------------------
-    if client and client:supports_method("textDocument/inlayHint", { bufnr = bufnr }) then
+    if client and client:supports_method("textDocument/inlayHint") then
       vim.keymap.set("n", "<leader>th", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
       end, { desc = "[T]oggle Inlay [H]ints", buffer = bufnr })

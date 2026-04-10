@@ -44,7 +44,7 @@ vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (de
 vim.opt.signcolumn = "yes"   -- Keep signcolumn on by default (default: 'auto')
 vim.opt.showmatch = true     -- Highlight matching brackets
 vim.opt.matchtime = 2        -- How long to show matching bracket
--- vim.opt.cmdheight = 1        -- Command line height
+vim.opt.cmdheight = 1        -- Keep a visible command line for package installs and other status output
 vim.opt.showmode = false     -- We don't need to see things like -- INSERT -- anymore (default: true)
 vim.opt.pumheight = 10       -- Popup menu height
 vim.opt.pumblend = 10        -- Popup menu transparency
@@ -55,6 +55,7 @@ vim.opt.inccommand = 'split' -- Preview substitutions live, as you type!
 -- opt.ruler = false                      -- Disable the default ruler
 -- opt.virtualedit = "block"              -- Allow cursor to move where there is no text in visual block mode
 -- opt.winminwidth = 5                    -- Minimum window width
+vim.opt.showtabline = 2   -- always show tabs
 vim.opt.cursorline = true -- Highlight the current line (default: false)
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.listchars = {
