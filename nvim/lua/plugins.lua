@@ -3,12 +3,7 @@ vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-tree/nvim-web-devicons",  -- dep for icons
   "https://github.com/rafamadriz/friendly-snippets", -- dep for blink
-  "https://github.com/nvim-lua/plenary.nvim",        -- dep for neo-tree
-  "https://github.com/MunifTanjim/nui.nvim",         -- dep for neo-tree
-  {
-    src = 'https://github.com/nvim-neo-tree/neo-tree.nvim',
-    version = vim.version.range('3')
-  },
+  "https://github.com/nvim-mini/mini.files",
   "https://github.com/nvim-mini/mini.statusline",
   "https://github.com/nvim-mini/mini.notify",
   {
@@ -32,13 +27,6 @@ vim.pack.add({
 vim.cmd.colorscheme("catppuccin")
 
 -- ╔════════════════════════════════╗
--- ║      PLUGIN: NEO-TREE          ║
--- ╚════════════════════════════════╝
-require("neo-tree").setup({})
-
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
-
--- ╔════════════════════════════════╗
 -- ║     PLUGIN: TREESITTER         ║
 -- ╚════════════════════════════════╝
 require("nvim-treesitter").setup()
@@ -55,6 +43,25 @@ statusline.setup({ use_icons = vim.g.have_nerd_font, lazy = false })
 statusline.section_location = function()
   return "%2l:%-2v"
 end
+
+local minifiles = require("mini.files")
+minifiles.setup({
+  mappings = {
+    go_in       = '', -- disabled (use Enter instead)
+    go_in_plus  = '<CR>',
+    go_out      = '<Left>',
+    go_out_plus = '', -- disabled
+  },
+})
+
+vim.keymap.set("n", "-", function()
+  if not minifiles.close() then
+    local buf_name = vim.api.nvim_buf_get_name(0)
+    local path = buf_name == "" and vim.loop.cwd()
+        or vim.fn.fnamemodify(buf_name, ":p:h")
+    minifiles.open(path)
+  end
+end, { desc = "Toggle mini.files explorer" })
 
 
 -- ╔════════════════════════════════╗
