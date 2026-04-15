@@ -29,7 +29,43 @@ vim.cmd.colorscheme("catppuccin")
 -- ╔════════════════════════════════╗
 -- ║     PLUGIN: TREESITTER         ║
 -- ╚════════════════════════════════╝
-require("nvim-treesitter").setup()
+local treesitter = require("nvim-treesitter")
+
+treesitter.setup({
+  install_dir = vim.fn.stdpath("data") .. "/site",
+})
+
+vim.treesitter.language.register("json", { "jsonc" })
+
+local ensure_parsers = {
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "diff",
+  "go",
+  "html",
+  "javascript",
+  "jsdoc",
+  "json",
+  "lua",
+  "luadoc",
+  "markdown",
+  "markdown_inline",
+  "query",
+  "regex",
+  "sql",
+  "svelte",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "yaml",
+  "zig",
+}
+
+treesitter.install(ensure_parsers)
 
 -- ╔════════════════════════════════╗
 -- ║        PLUGIN: MINI            ║

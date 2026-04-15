@@ -90,8 +90,7 @@ vim.schedule(function() vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedpl
 
 -- ======= Folding settings ========
 vim.opt.smoothscroll = true
-vim.opt.foldenable = false
-vim.opt.foldmethod = "indent"
+vim.opt.foldenable = true
 vim.opt.foldlevel = 99             -- Start with all folds open
 vim.opt.formatoptions = "jcroqlnt" -- tcqj
 

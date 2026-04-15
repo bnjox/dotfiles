@@ -1,10 +1,30 @@
+local treesitter_group = vim.api.nvim_create_augroup("treesitter_start", { clear = true })
+
+local function configure_treesitter(event)
+  local ft = vim.bo[event.buf].filetype
+  if ft == "" then
+    return
+  end
+
+  local ok, lang = pcall(vim.treesitter.language.get_lang, ft)
+  lang = ok and lang or ft
+
+  local parser = vim.treesitter.get_parser(event.buf, lang, { error = false })
+  if parser then
+    vim.treesitter.start(event.buf, lang)
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    return
+  end
+
+  vim.wo.foldmethod = "manual"
+  vim.wo.foldexpr = "0"
+end
+
 -- Treesitter needs a resolved filetype before it can infer the parser.
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
-  -- pattern = parsers,
-  callback = function()
-    pcall(vim.treesitter.start)
-  end,
+vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+  group = treesitter_group,
+  callback = configure_treesitter,
 })
 
 -- update tree-sitter parsers whenever ‘nvim-treesitter’ is updated:
