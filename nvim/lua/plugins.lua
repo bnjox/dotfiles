@@ -1,8 +1,6 @@
 vim.pack.add({
   { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
   "https://github.com/nvim-treesitter/nvim-treesitter",
-  "https://github.com/nvim-tree/nvim-web-devicons",  -- dep for icons
-  "https://github.com/rafamadriz/friendly-snippets", -- dep for blink
   "https://github.com/nvim-mini/mini.files",
   "https://github.com/nvim-mini/mini.statusline",
   "https://github.com/nvim-mini/mini.notify",
@@ -13,12 +11,16 @@ vim.pack.add({
   "https://github.com/ibhagwan/fzf-lua",
   "https://github.com/akinsho/bufferline.nvim",
   "https://github.com/lewis6991/gitsigns.nvim",
-  "https://github.com/neovim/nvim-lspconfig", -- deps for lspconfig
-  "https://github.com/mason-org/mason.nvim",  -- deps for lspconfig
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/folke/which-key.nvim",
   "https://github.com/akinsho/toggleterm.nvim",
   -- "https://github.com/sindrets/diffview.nvim",
+
+  -- Deps --
+  "https://github.com/neovim/nvim-lspconfig",        -- deps for lspconfig
+  "https://github.com/mason-org/mason.nvim",         -- deps for lspconfig
+  "https://github.com/nvim-tree/nvim-web-devicons",  -- dep for icons
+  "https://github.com/rafamadriz/friendly-snippets", -- dep for blink
 }, { load = true })
 
 -- ╔════════════════════════════════╗
@@ -40,29 +42,22 @@ vim.treesitter.language.register("json", { "jsonc" })
 local ensure_parsers = {
   "bash",
   "c",
-  "cpp",
   "css",
-  "diff",
   "go",
   "html",
   "javascript",
-  "jsdoc",
   "json",
   "lua",
-  "luadoc",
   "markdown",
   "markdown_inline",
-  "query",
-  "regex",
   "sql",
   "svelte",
   "toml",
   "tsx",
   "typescript",
-  "vim",
-  "vimdoc",
   "yaml",
   "zig",
+  "python"
 }
 
 treesitter.install(ensure_parsers)
@@ -185,21 +180,23 @@ require("mason-lspconfig").setup({
     "zls",
     "lua_ls",
     "tsgo",
+    "ty",
+    "ruff"
   },
 })
 
 -- ╔════════════════════════════════╗
 -- ║     PLUGIN: BUFFERLINE         ║
 -- ╚════════════════════════════════╝
--- require("bufferline").setup({
---   options = {
---     diagnostics = "nvim_lsp",
---     diagnostics_indicator = function(count, level)
---       local icon = level:match("error") and " " or " "
---       return " " .. icon .. count
---     end,
---   },
--- })
+require("bufferline").setup({
+  options = {
+    diagnostics = "nvim_lsp",
+    diagnostics_indicator = function(count, level)
+      local icon = level:match("error") and " " or " "
+      return " " .. icon .. count
+    end,
+  },
+})
 
 -- ╔════════════════════════════════╗
 -- ║     PLUGIN: WHICH-KEY          ║
